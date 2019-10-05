@@ -1,17 +1,20 @@
 site_name: "mailcow: dockerized documentation"
 site_url: https://mailcow.github.io/mailcow-dockerized-docs/
-copyright: 'Copyright &copy; 2018 André Peters'
+copyright: 'Copyright &copy; 2019 André Peters'
 repo_name: mailcow/mailcow-dockerized
 repo_url: https://github.com/mailcow/mailcow-dockerized
 edit_uri: ../mailcow-dockerized-docs/edit/master/docs/
 remote_branch: gh-pages
 theme: material
 markdown_extensions:
-  - codehilite(guess_lang=true)
-  - toc(permalink=true)
+  - codehilite:
+      guess_lang: true
+  - toc:
+      permalink: true
   - admonition
   - pymdownx.magiclink
-  - pymdownx.tasklist(custom_checkbox=true)
+  - pymdownx.tasklist:
+      custom_checkbox: true
   - pymdownx.mark
   - pymdownx.tilde
   - pymdownx.extra
@@ -21,9 +24,10 @@ nav:
 - 'Prerequisites':
   - 'Prepare Your System': 'prerequisite-system.md'
   - 'DNS Setup': 'prerequisite-dns.md'
-- 'Installation & Update':
-  - 'Installation': 'install.md'
-  - 'Update': 'install-update.md'
+- 'Installation, Update & Migration':
+  - 'Installation': 'i_u_m_install.md'
+  - 'Update': 'i_u_m_update.md'
+  - 'Migration': 'i_u_m_migration.md'
 - 'First Steps (optional)':
   - 'SSL': 'firststeps-ssl.md'
   - 'Rspamd Web UI': 'firststeps-rspamd_ui.md'
@@ -33,6 +37,7 @@ nav:
   - 'Setup a relayhost': 'firststeps-relayhost.md'
   - 'Logging': 'firststeps-logging.md'
   - 'Local MTA on Docker host': 'firststeps-local_mta.md'
+  - 'Sync Jobs Migration': 'firststeps-sync_jobs_migration.md'
 - 'Models':
   - 'Sender and receiver model': 'model-sender_rcv.md'
   - 'ACL': 'model-acl.md'
@@ -43,6 +48,7 @@ nav:
     - 'Reset Passwords': 'debug-reset_pw.md'
     - 'Remove Persistent Data': 'debug-rm_volumes.md'
     - 'Common Problems': 'debug-common_problems.md'
+    - 'Admin login to SOGo': 'debug-admin_login_sogo.md'
 - 'Backup & Restore':
   - 'Helper script':
       - 'Backup': 'b_n_r_backup.md'
@@ -59,16 +65,23 @@ nav:
       - 'Tagging': 'u_e-mailcow_ui-tagging.md'
       - 'Two-Factor Authentication': 'u_e-mailcow_ui-tfa.md'
   - 'Postfix':
-      - 'Anonymize Headers': 'u_e-postfix-anonym_headers.md'
+      - 'Whitelist IP in Postscreen': 'u_e-postfix-postscreen_whitelist.md'
       - 'Disable Sender Addresses Verification': 'u_e-postfix-disable_sender_verification.md'
       - 'Max. message size (attachment size)': 'u_e-postfix-attachment_size.md'
       - 'Statistics with pflogsumm': 'u_e-postfix-pflogsumm.md'
+  - 'Unbound':
+      - 'Using an external DNS service': 'u_e-unbound-fwd.md'
   - 'Dovecot':
       - "(Re-)Enable any and all authenticated ACL settings": 'u_e-dovecot-any_acl.md'
       - "Expunge a User's Mails": 'u_e-dovecot-expunge.md'
+      - 'Mail crypt': 'u_e-dovecot-mail-crypt.md'
       - 'More Examples with DOVEADM': 'u_e-dovecot-more.md'
-      - 'Move vmail volume': 'u_e-dovecot-vmail-volume.md' 
-  - 'Nginx': 'u_e-nginx.md'
+      - 'Move vmail volume': 'u_e-dovecot-vmail-volume.md'
+      - 'IMAP IDLE interval': 'u_e-dovecot-idle_interval.md'
+      - 'FTS (Solr)': 'u_e-dovecot-fts.md'
+  - 'Nginx': 
+     - "Custom sites": 'u_e-nginx.md'
+     - "Create subdomain webmail.example.org": 'u_e-webmail-site.md'
   - 'Redis': 'u_e-redis.md'
   - 'Rspamd': 'u_e-rspamd.md'
   - 'SOGo': 'u_e-sogo.md'

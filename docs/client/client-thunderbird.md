@@ -24,7 +24,7 @@
   Close the account settings window with the <i>OK</i> button.
 </li>
 <li class="client_integrator_enabled">
-  In your web browser, download <span class="client_variables_unavailable">SOGo Integrator</span><span class="client_variables_available"><a class="client_var_integrator_link" href="/thunderbird-plugins/sogo-integrator-__VERSION__-__DOMAIN__.xpi">SOGo Integrator</a></span>.
+  In your web browser, download <span class="client_variables_unavailable">SOGo Integrator</span><span class="client_variables_available"><a class="client_var_integrator_link client_var_link" href="/thunderbird-plugins/sogo-integrator-__VERSION__-__DOMAIN__.xpi">SOGo Integrator</a></span>.
 </li>
 <li class="client_integrator_enabled">
   Back in Thunderbird, go to the <i>Tools</i> menu and select <i>Add-ons</i>.
@@ -52,5 +52,5 @@ Automatic configuration of calendars and address books in Thunderbird is not cur
 </div>
 
 <div class="client_variables_unavailable" markdown="1">
-Automatic configuration of calendars and address books (from step 9 onward) in Thunderbird is only supported if your server administrator has enabled [SOGo Integrator](third_party-thunderbird).
+Automatic configuration of calendars and address books (from step 9 onward) in Thunderbird is only supported if your server administrator has enabled [SOGo Integrator](https://mailcow.github.io/mailcow-dockerized-docs/third_party-thunderbird).
 </div>
