@@ -27,6 +27,29 @@ Consider attaching a local folder as new volume to `rspamd-mailcow` in `docker-c
 for file in /data/old_mail/.Junk/cur/*; do rspamc learn_spam < zcat $file; done
 ```
 
+### Reset learned data
+
+You need to delete keys in Redis to reset learned mail, so create a copy of your Redis database now:
+
+**Backup database**
+```
+# It is better to stop Redis before you copy the file.
+cp /var/lib/docker/volumes/mailcowdockerized_redis-vol-1/_data/dump.rdb /root/
+```
+
+**Reset Bayes data**
+```
+docker-compose exec redis-mailcow sh -c 'redis-cli --scan --pattern BAYES_* | xargs redis-cli del'
+docker-compose exec redis-mailcow sh -c 'redis-cli --scan --pattern RS* | xargs redis-cli del'
+```
+
+If it complains about...
+```
+(error) ERR wrong number of arguments for 'del' command
+```
+...the key pattern was not found and thus no data is available to delete.
+
+
 ## CLI tools
 
 ```
@@ -34,4 +57,35 @@ docker-compose exec rspamd-mailcow rspamc --help
 docker-compose exec rspamd-mailcow rspamadm --help
 ```
 
+## Disable Greylisting
+
+You can disable rspamd's greylisting server-wide by editing:
+
+`{mailcow-dir}/data/conf/rspamd/local.d/greylist.conf`
+
+Simply add the line:
+
+`enabled = false;`
+
+Save the file and then restart the rspamd container.
+
 See [Rspamd documentation](https://rspamd.com/doc/index.html)
+
+## Whitelist specific ClamAV signatures
+
+You may find that legitimate (clean) mail is being blocked by ClamAV (Rspamd will flag the mail with `VIRUS_FOUND`). For instance, interactive PDF form attachments are blocked by default because the embedded Javascript code may be used for nefarious purposes. Confirm by looking at the clamd logs, e.g.:
+
+`docker-compose logs clamd-mailcow | grep FOUND`
+
+This line confirms that such was identified:
+
+`clamd-mailcow_1      | Sat Sep 28 07:43:24 2019 -> instream(local): PUA.Pdf.Trojan.EmbeddedJavaScript-1(e887d2ac324ce90750768b86b63d0749:363325) FOUND`
+
+To whitelist this particular signature (and enable sending this type of file attached), add it to the ClamAV signature whitelist file:
+
+`echo 'PUA.Pdf.Trojan.EmbeddedJavaScript-1' >> data/conf/clamav/whitelist.ign2`
+
+Then restart the clamd-mailcow service container in the mailcow UI, or using docker-compose:
+
+`docker-compose restart clamd-mailcow`
+
